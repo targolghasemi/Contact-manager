@@ -1,3 +1,5 @@
+import {Purple} from '../../helpers/colors'
+
 const SearchContact = () => {
     return(
         <div className="input-group mx-2 w-75 " dir="ltr">
@@ -6,9 +8,8 @@ const SearchContact = () => {
         </span>
         <input dir="rtl"
          type="text"
-         style={{backgroundColor:"gray" , borderColor: "purple"}}
          className="form-control"
-         placeholder="جستجوی مخاطبین"
+         placeholder="جستجوی مخاطب"
          aria-label="Search" 
          aria-description="basic-addon1"/>     
     </div>
