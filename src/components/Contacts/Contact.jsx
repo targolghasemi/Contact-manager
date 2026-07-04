@@ -1,6 +1,6 @@
 import {Purple,CurrentLine,Orange,Cyan,Red} from "../../helpers/colors"
 
-const Contact = () =>{
+const Contact = ({contact}) =>{
     return(
         <div className="col-md-6">
             <div style={{backgroundColor:CurrentLine}} className = "card my-2">
@@ -8,8 +8,8 @@ const Contact = () =>{
                     <div className="row align-items-center d-flex justify-content-around">
                         <div className="col-md-4 col-sm-4">
                         <img
-  src="https://picsum.photos/200"
-  alt="profile"
+  src={contact.photo}
+  alt={contact.fullname}
   style={{ border: `1px solid ${Purple}` }}
   className="img-fluid rounded"
 />
@@ -18,17 +18,17 @@ const Contact = () =>{
                             <ul className="list-group">
                                 <li className="list-group-item list-group-item-dark">
                                     نام و نام  خانوادگی : {" "}
-                                    <span className="fw-bold">یونس قربانی
+                                    <span className="fw-bold">{contact.fullname}
                                     </span>
                                 </li>
                                 <li className="list-group-item list-group-item-dark">
                                    شماره موبایل : {" "}
-                                    <span className="fw-bold">09123567890
+                                    <span className="fw-bold">{contact.mobile}
                                     </span>
                                 </li>
                                 <li className="list-group-item list-group-item-dark">
                                     ادرس ایمیل : {" "}
-                                    <span className="fw-bold">younesghorbani1234@gmail.com
+                                    <span className="fw-bold">{contact.email}
                                     </span>
                                 </li>
                             </ul>
