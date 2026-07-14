@@ -28,7 +28,7 @@ export const getAllGroups = ()=>{
 //@desc Get group name with groupId
 //@route Get https://localhost:9000/groups/:groupId
 export const getGroup = (groupId)=>{
-    const url = `${SERVER_URL}/groups${groupId}`
+    const url = `${SERVER_URL}/groups/${groupId}`
     return axios.get(url);
 }
 
