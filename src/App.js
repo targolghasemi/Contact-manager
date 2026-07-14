@@ -9,6 +9,7 @@ import "./App.css";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
+  const [forceRender,setForceRender] = useState(false)
   const [getContacts, setContacts] = useState([]);
   const [getGroups,setGroups] = useState([]);
   const [getContact, setContact] = useState({
@@ -27,7 +28,7 @@ const App = () => {
       try{
         setLoading(true);
         const { data : contactsData} = await getAllContacts();
-        const { data : groupsData} = await getAllGroups();
+        const { data: groupsData } = await getAllGroups();
 
         console.log(contactsData);
         setContacts(contactsData);
@@ -43,12 +44,35 @@ const App = () => {
     fetchData();
   },[])
 
+  useEffect(()=>{
+    const fetchData = async () =>{
+      try{
+        setLoading(true);
+        const { data : contactsData} = await getAllContacts();
+        const { data: groupsData } = await getAllGroups();
+
+        console.log(contactsData);
+        setContacts(contactsData);
+        setContacts(contactsData);
+        setGroups(groupsData);
+
+        setLoading(false);
+      }catch(err){
+        
+        setLoading(false)
+      }
+    }
+    fetchData();
+  },[forceRender])
+
+
 const createContactForm = async (event) =>{
   event.preventDefault();
   try {
     const {status} = await createContact(getContact);
     if(status === 201){
       setContact({})
+      setForceRender(!forceRender)
       navigate("/contacts");
     }
   } catch (error) {
