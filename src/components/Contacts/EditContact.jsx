@@ -4,7 +4,7 @@ import { getAllGroups, getContact, updateContact } from "../../services/contactS
 import {Spinner} from "../"
 import{Comment , Orange , Purple} from "../../helpers/colors"
 
-const EditContact = () =>{
+const EditContact = ({forceRender,setForceRender}) =>{
     const {contactId} = useParams()
     const navigate = useNavigate()
 
@@ -59,6 +59,7 @@ const EditContact = () =>{
             const{data} = await updateContact(state.contact,contactId);
             setState({...state,loading:false})
             if (data) {
+                setForceRender(!forceRender)
                 navigate("/contacts")
             }
         } catch (error) {
