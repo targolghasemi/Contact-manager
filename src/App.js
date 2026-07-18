@@ -1,9 +1,11 @@
 import { useState , useEffect } from "react";
 import {Routes,Route,Navigate,useNavigate} from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { confirmAlert } from "react-confirm-alert";
 import { AddContact,Contacts,EditContact,ViewContact } from "./components";
+import { CurrentLine, Purple , Yellow,Comment } from "./helpers/colors";
 
-import {getAllContacts,getAllGroups , createContact} from "./services/contactService"
+import {getAllContacts,getAllGroups , createContact,deleteContact} from "./services/contactService"
 
 import "./App.css";
 
@@ -11,6 +13,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [forceRender,setForceRender] = useState(false)
   const [getContacts, setContacts] = useState([]);
+  const [getFilteredContacts,setFilteredContacts] = useState([])
   const [getGroups,setGroups] = useState([]);
   const [getContact, setContact] = useState({
     fullname: "",
@@ -20,6 +23,8 @@ const App = () => {
     job: "",
     group: "",
   });
+
+  const [query,setQuery] = useState({text:""});
 
   const navigate = useNavigate();
 
@@ -32,7 +37,7 @@ const App = () => {
 
         console.log(contactsData);
         setContacts(contactsData);
-        setContacts(contactsData);
+        setFilteredContacts(contactsData);
         setGroups(groupsData);
 
         setLoading(false);
@@ -87,13 +92,76 @@ const setContactInfo = (event) =>{
   });
 }
 
+const confirm = (contactId , contactFullname) =>{
+  confirmAlert({
+    customUI : ({onClose}) =>{
+      return(
+        <div
+        dir="rtl"
+        style={{
+          backgroundColor:CurrentLine,
+          border:`1px solid ${Purple}`,
+          borderRadius:"1em"
+        }}
+        className="p-4"
+        >
+          <h1 style={{color:Yellow}}>پاک کردن مخاطب</h1>
+          <p
+          style={{color:"white"}}
+          > مطمینی که میخوای مخاطب { contactFullname} رو پاک کنی؟
+          </p>
+
+          <button
+          className="btn mx-2" style={{backgroundColor:Purple}}
+          onClick={()=>{
+            removeContact(contactId);
+            onClose()
+          }}>
+            مطمین هستم
+          </button>
+
+          <button className="btn" style={{backgroundColor:Comment}} onClick = {onClose}>انصراف</button>
+        </div>
+      )
+    }
+  }
+
+  )
+}
+
+const removeContact = async (contactId)=>{
+  try {
+    setLoading(true);
+    const response = await deleteContact(contactId);
+    if (response) {
+      const {data:contactsData} = await getAllContacts();
+      setContacts(contactsData);
+      setLoading(false)
+    }
+  } catch (error) {
+    console.log(error.message);
+    setLoading(false);
+  }
+}
+
+const contactSearch = (event) =>{
+  setQuery({...query,text:event.target.value});
+  const allContacts = getContacts.filter((contact) =>{
+    return contact.fullname.toLowerCase().includes(event.target.value.toLowerCase())
+
+  });
+  setFilteredContacts(allContacts)
+}
+
+
+
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar query={query} search={contactSearch}/>
       <Routes>
         <Route path="/" element={<Navigate to="/contacts"/>}/>
-        <Route path="/contacts" element={<Contacts contacts={getContacts} loading={loading}/>}/>
+        <Route path="/contacts" element={<Contacts contacts={getFilteredContacts} loading={loading} confirmDelete = { confirm}/>}/>
         <Route
           path="/contacts/add"
           element={

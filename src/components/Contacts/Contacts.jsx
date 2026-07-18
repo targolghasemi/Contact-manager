@@ -3,7 +3,7 @@ import Contact from "./Contact";
 import Spinner from "../Spinner";
 import {Pink,Orange, CurrentLine} from "../../helpers/colors";
 
-const Contacts = ({contacts,loading}) =>{
+const Contacts = ({contacts,loading,confirmDelete}) =>{
 
     return(
         <>
@@ -29,7 +29,7 @@ const Contacts = ({contacts,loading}) =>{
                 <div className="row">
                     {
                         contacts.length > 0 ? contacts.map(c=> (
-                            <Contact key={c.id} contact={c}/>
+                            <Contact key={c.id} contact={c} confirmDelete = {()=> confirmDelete (c.id , c.fullname)}/>
                         )) :
                         (
                             <div className="text-center py-5" style={{backgroundColor:CurrentLine}}>

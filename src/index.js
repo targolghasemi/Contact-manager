@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 // Custom CSS
 import './index.css';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import App from './App';
 
