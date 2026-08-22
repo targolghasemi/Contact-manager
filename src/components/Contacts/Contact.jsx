@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import {Purple,CurrentLine,Orange,Cyan,Red} from "../../helpers/colors"
 
-const Contact = ({contact, confirmDelete}) =>{
+const Contact = ({contact, deleteContact}) =>{
     return(
         <div className="col-md-6">
             <div style={{backgroundColor:CurrentLine}} className = "card my-2">
@@ -41,7 +41,7 @@ const Contact = ({contact, confirmDelete}) =>{
                                 <i className="fa fa-pen"></i>
                                 </Link>
                                 <button className="btn my-1 " style={{backgroundColor:Red}}
-                                onClick = {confirmDelete}>
+                                onClick = {deleteContact}>
                                 <i className="fa fa-trash"></i>
                                 </button>
                             </div>
