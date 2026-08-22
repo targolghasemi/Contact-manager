@@ -3,6 +3,7 @@ import {Routes,Route,Navigate,useNavigate} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { confirmAlert } from "react-confirm-alert";
 import { useImmer } from "use-immer";
+import { ToastContainer, toast } from "react-toastify";
 
 import _ from "lodash"
 
@@ -56,7 +57,7 @@ const createContactForm = async (values) =>{
     setLoading((draft) => !draft)
     const {status,data} = await createContact(values);
     if(status === 201){
-
+      toast.success("مخاطب با موفقیت ساخته شد" )
       setContacts(draft=>{
         draft.push(data)
     })
@@ -125,6 +126,7 @@ const removeContact = async (contactId)=>{
 
     //sending request to server
     const {status} = await deleteContact(contactId);
+    toast.error("مخاطب با موفقیت حذف شد")
     if (status !==200) {
       setContacts(contactsBackup);
       setFilteredContacts(contactsBackup)
@@ -161,11 +163,12 @@ const contactSearch =_.debounce(query =>{
       contacts,
       filteredContacts,
       groups,
-      deletContact:confirmDelete,
+      deleteContact:confirmDelete,
       createContact:createContactForm,
       contactSearch,
     }}>
-          <div className="App">
+  <div className="App">
+    <ToastContainer rtl={true} position="top-right" theme="colored"/>
       <Navbar  />
       <Routes>
         <Route path="/" element={<Navigate to="/contacts" />} />

@@ -30,3 +30,7 @@ input[type="number"]{
   color: #f8f8f4 !important;
   opacity: .7;
 }
+
+.Tostify__toast-body{
+  font-family: "Vazir" , tahoma !important;
+}

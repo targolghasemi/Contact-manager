@@ -2,6 +2,7 @@ import { useEffect, useContext} from "react";
 import { useNavigate, useParams,Link } from "react-router-dom";
 import{Formik,Field,Form,ErrorMessage} from "formik"
 import { useImmer } from "use-immer";
+import {toast} from 'react-toastify'
 import { ContactContext } from "../../context/contactContext";
 import { getAllGroups, getContact, updateContact } from "../../services/contactService";
 import {Spinner} from "../"
@@ -10,7 +11,7 @@ import { contactSchema } from "../../validations/contactValidation";
 
 const EditContact = () =>{
     const {contactId} = useParams()
-    const{contacts,setContacts,setFilteredContacts ,loading,setLoading,groups} = useContext(ContactContext)
+    const{setContacts,setFilteredContacts ,loading,setLoading,groups} = useContext(ContactContext)
     const navigate = useNavigate()
 
     const[contact,setContact] = useImmer({
@@ -38,14 +39,15 @@ const EditContact = () =>{
             setLoading(true)
             const{data , status} = await updateContact(values,contactId);
             if (status === 200) {
+                toast.info("مخاطب با موفقیت ویرایش شد")
                 setLoading(false)
                 
                 setContacts(draft =>{
-                    const contactIndex = draft.findIndex(c.id===parseInt(contactId));
+                    const contactIndex = draft.findIndex((c) => c.id === parseInt(contactId));
                     draft[contactIndex] = {...data}
                 })
                 setFilteredContacts(draft =>{
-                    const contactIndex = draft.findIndex(c.id===parseInt(contactId));
+                    const contactIndex = draft.findIndex((c) => c.id === parseInt(contactId));
                     draft[contactIndex] = {...data}
                 })
                           
@@ -77,6 +79,7 @@ const EditContact = () =>{
                                 <div className="col-md-8"/>
                                 <Formik
                                 initialValues={contact}
+                                enableReinitialize={true}
                                 validationSchema={contactSchema}
                                 onSubmit={(values) =>{
                                 submitForm(values)

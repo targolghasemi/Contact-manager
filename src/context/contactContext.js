@@ -9,7 +9,7 @@ export const ContactContext = createContext({
     //errors:[],
     filteredContacts:[],
     groups:[],
-    deletContact:()=>{},
+    deleteContact:()=>{},
     createContact:()=>{},
     contactSearch:()=>{}
 
