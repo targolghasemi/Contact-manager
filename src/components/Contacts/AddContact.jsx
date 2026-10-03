@@ -132,7 +132,7 @@ const AddContacts = () =>{
                                 <div className="mx-2">
                                     <input
                                     type="submit"
-                                    classname="btn"
+                                    className="btn"
                                     style={{backgroundColor:Purple}}
                                     value="ساخت مخاطب"
                                     />

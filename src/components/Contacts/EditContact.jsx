@@ -156,7 +156,7 @@ const EditContact = () =>{
                                 <div className="mx-2">
                                     <input
                                     type="submit"
-                                    classname="btn"
+                                    className="btn"
                                     style={{backgroundColor:Purple}}
                                     value="ویرایش مخاطب"
                                     />
@@ -173,10 +173,10 @@ const EditContact = () =>{
                         
                                 </div>
 
-                                <div className="col-md-4">
+                                <div className="text-center mt-4" >
                                     <img
                                        src={contact.photo}
-                                       className="img-fluid rounded"
+                                       className="img-fluid rounded mt-4"
                                        style={{border: `1px solid ${Purple}`}}
                                     />
                                 </div>

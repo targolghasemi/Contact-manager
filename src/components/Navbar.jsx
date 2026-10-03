@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav
       className="navbar navbar-dark navbar-expand-sm shadow-lg"
-      style={{ backgroundColor: Background }}
+     style={{ backgroundColor: Background }}
     >
       <div className="container">
         <div className="row w-100">
