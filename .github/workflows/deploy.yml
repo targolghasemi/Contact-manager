@@ -28,7 +28,9 @@ jobs:
         run: npm install --no-package-lock
 
       - name: Build
-         run: CI=false npm run build
+        env:
+          CI: false
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -40,7 +42,3 @@ jobs:
 
       - name: Deploy
         uses: actions/deploy-pages@v4
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
