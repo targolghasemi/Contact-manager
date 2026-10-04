@@ -55,7 +55,3 @@
     "concurrently": "^7.3.0"
   }
 }
-  "devDependencies": {
-    "concurrently": "^7.3.0"
-  }
-}
